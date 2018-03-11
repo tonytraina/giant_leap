@@ -1,3 +1,14 @@
+Ride
+  passenger_name: text
+  origin: text
+  destination: text
+  complete: boolean
+  driver_id: integer
+
+Driver
+  name: text
+  photo_url: text
+
 # Example:
 #
 # Book

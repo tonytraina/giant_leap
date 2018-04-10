@@ -5,12 +5,16 @@
 
     <form action="/rides" method="post">
       <p>
-        Pickup Location?
-        <input autofocus type="text" name="origin" class="form-control">
+        Your Name:
+        <input required type="text" name="passenger_name" class="form-control">
+      </p>
+      <p>
+        Pickup Location:
+        <input required type="text" name="origin" class="form-control">
       </p>
       <p>
         Where to?
-        <input autofocus type="text" name="destination" class="form-control">
+        <input required type="text" name="destination" class="form-control">
       </p>
 
       <button class="btn btn-primary">Submit Request</button>

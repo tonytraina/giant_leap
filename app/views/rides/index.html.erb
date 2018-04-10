@@ -9,38 +9,22 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>240 E. Superior, Chicago, IL</td>
-          <td>1901 W. Madison St, Chicago, IL</td>
-          <td><b>Charlie</b><br><i> Received: 3/28/2018 2:45p</i> </td>
-          <td><a href="#" class="btn-sm btn-info">Assign Driver</a></td>
-        </tr>
-        <tr>
-          <td>333 W. 35th St, Chicago, IL</td>
-          <td>1060 W. Addison St, Chicago, IL</td>
-          <td><b>Molly</b><br><i> Received: 3/28/2018 2:45p</i> </td>
-          <td>
-            <b>Hoke</b>
-            <br><i>Assigned: 3/28/2018 3:23pm</i>
-            <br><a class="btn-sm btn-info" href="#">Mark as Complete</a>
-          </td>
-        </tr>
-        <tr>
-          <td>419 W. Huron, Chicago, IL</td>
-          <td>2202 Sheridan Rd, Evanston, IL</td>
-          <td> <b>Zak</b> <br><i>Received: 3/28/2018 2:45p</i> </td>
-          <td><a href="#" class="btn-sm btn-info">Assign Driver</a></td>
-        </tr>
-        <tr>
-          <td>240 E. Superior, Chicago, IL</td>
-          <td>1901 W. Madison St, Chicago, IL</td>
-          <td><b>Linda</b><br><i>Received: 3/28/2018 2:45p</i> </td>
-          <td>
-            <b>Kermit The Frog</b>
-            <br><i>Assigned: 3/28/2018 3:23pm</i>
-            <br><a class="btn-sm btn-info" href="#">Mark as Complete</a>
-          </td>
-        </tr>
+        <% for ride in Ride.all.where(complete: false).order("created_at desc") %>
+          <tr>
+            <td><%= ride.origin %></td>
+            <td><%= ride.destination %></td>
+            <td><b><%= ride.passenger_name %></b><br><i><%= ride.created_at %></i> </td>
+            <% if ride.driver_id.blank? %>
+            <td><a href="/drivers?ride_id=<%= ride.id %>" class="btn-sm btn-info">Assign Driver</a></td>
+            <% else %>
+              <td>
+                <% driver = Driver.find_by(id: ride.driver_id) %>
+                <b><%= driver.name %></b>
+            <br><%= link_to "Mark as Complete", "/rides/#{ride.id}?complete=true", method: "patch", class: "btn-sm btn-info" %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
       </tbody>
     </table>
   </div>

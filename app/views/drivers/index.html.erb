@@ -1,2 +1,21 @@
-<h1>This is a placeholder page.</h1>
-<p>To modify this page, edit the template at <code>app/views/drivers/index.html.erb</p>
+<% ride = Ride.find_by(id: params["ride_id"]) %>
+
+<h1>Assign a Driver to Ride <%= ride.id %></h1>
+
+<p>Select a driver from this list:</p>
+
+<%= form_tag "/rides/#{ride.id}", method: "patch" do %>
+
+  <select name = "driver_id">
+  <% for driver in Driver.all.order("name") %>
+
+    <option value="<%= driver.id %>">
+        <%= driver.name %>
+    </option>
+
+  <% end %>
+  </select>
+
+  <button class = "btn btn-info">Select this Driver</button>
+
+  <% end %>
